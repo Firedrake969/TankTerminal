@@ -6,38 +6,30 @@ module.exports = {
 		last = i;
 
 		process.stdout.write(
-			chalk.bold(
-				chalk.grey('[....] ')
-				+ i +
-				' \r'
-			)
+			chalk.bold.grey('[....] ')
+			+ i +
+			'...\r'
 		);
 	},
 
 	fail: function() {
 		process.stdout.write(
-			chalk.bold(
-				chalk.red('[fail] ')
-				+ last + '\n'
-			)
+			chalk.bold.red('[fail] ')
+			+ last + '\n'
 		);
 	},
 
 	done: function() {
 		process.stdout.write(
-			chalk.bold(
-				chalk.green('[done] ')
-				+ last + '\n'
-			)
+			chalk.bold.green('[done] ')
+			+ last + '\n'
 		);
 	},
 
 	warn: function() {
 		process.stdout.write(
-			chalk.bold(
-				chalk.yellow('[warn] ')
-				+ last + '\n'
-			)
+			chalk.bold.yellow('[warn] ')
+			+ last + '\n'
 		);
 	}
 }

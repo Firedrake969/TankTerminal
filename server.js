@@ -1,35 +1,24 @@
 const options = require('./options.json');
 const out = require('./console.js');
 
-const app = require('express')();
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const chalk = require('chalk');
-const r = require('rethinkdb');
+const Nedb = require('nedb');
+
+const db = new Nedb();
 
 function init() {
-	out.log('Connecting to DB');
-
- 	r.connect(options.database, function(err, conn) {
- 		if(err) {
-			out.fail();
-			throw err;
- 		}
-    
+	app.use(express.static('public'));
+	
+	require('./io.js')(io);
+	
+	out.log('Listening on port ' + chalk.cyan(options.server.port));
+	
+	http.listen(options.server.port, function() {
 		out.done();
-		
-		routes();
-		
-		out.log('Listening on port ' + options.server.port);
-		app.listen(options.server.port, function() {
-			out.done();
-		});
- 	});
-}
-
-function routes() {
-	app.get('/', function(req, res) {
-		res.json({
-			msg: 'Hello World!'
-		});
 	});
 }
 

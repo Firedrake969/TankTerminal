@@ -4,7 +4,7 @@
   "description": "",
   "main": "node.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "dependencies": {
     "chalk": "^1.1.1",
     "express": "^4.13.4",
-    "rethinkdb": "^2.2.1"
+    "nedb": "^1.7.4",
+    "socket.io": "^1.4.5"
   }
 }
