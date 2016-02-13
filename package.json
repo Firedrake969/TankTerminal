@@ -1,0 +1,24 @@
+{
+  "name": "multiplayerthing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GrannyCookies/multiplayerthing.git"
+  },
+  "author": "GrannyCookies & Firedrake969",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GrannyCookies/multiplayerthing/issues"
+  },
+  "homepage": "https://github.com/GrannyCookies/multiplayerthing#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "express": "^4.13.4",
+    "rethinkdb": "^2.2.1"
+  }
+}
