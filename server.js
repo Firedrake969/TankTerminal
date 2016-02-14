@@ -6,9 +6,6 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const chalk = require('chalk');
-const Nedb = require('nedb');
-
-const db = new Nedb();
 
 function init() {
 	app.use(express.static('public'));

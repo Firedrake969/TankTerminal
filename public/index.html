@@ -4,10 +4,15 @@
 		<title>$wag</title>
 
     <script src="/socket.io/socket.io.js"></script>
+		<script src="/jquery.js"></script>
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
-		<canvas>
-    </canvas>
+		<div id="join">
+			<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
+		</div>
+		
+		<canvas id="canvas"></canvas>
 		
 		<script src="game.js"></script>
 	</body>
