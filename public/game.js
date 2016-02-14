@@ -37,6 +37,7 @@ $('#commands input').on('keyup', function(e) {
 			return;
 		}
 		socket = io();
+		// insert the code into the code-display stack
 		socket.on('connect', function() {
 			socket.emit('code', this.value);
 		}.bind(this));

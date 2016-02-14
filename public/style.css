@@ -10,6 +10,9 @@
 .pull--right {
   float: right; }
 
+.relative {
+  position: relative; }
+
 .grid .col-half {
   width: 50%; }
 
@@ -30,5 +33,18 @@ html, body {
 .input-holder {
   display: block;
   text-align: center; }
+
+#join {
+  position: absolute;
+  display: inline-block;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0; }
+
+.grid {
+  min-height: 100%; }
+  .grid .col-half {
+    min-height: 100%; }
 
 /*# sourceMappingURL=style.css.map */
