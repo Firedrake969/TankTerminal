@@ -1,11 +1,11 @@
 var socket, key, name = 0;
-var joined = false;
+var name = undefined;
 
 $('#join input').on('keyup', function(e) {
 	if (e.which == 13) {
-		if (!joined) {
+		if (!name) {
 			sockets();
-			joined = true;
+			name = this.value;
 			$('#join').hide();
 			$('#commands').removeClass('hidden');
 		}

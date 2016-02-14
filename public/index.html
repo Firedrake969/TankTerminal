@@ -8,15 +8,19 @@
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
-		<div id="join" class="input-holder">
-			<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
+		<div class="grid">
+			<div class="col-half inline-block pull--left">
+				<div id="join" class="input-holder">
+					<input type="text" placeholder="Name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
+				</div>
+				<div id="commands" class="input-holder hidden">
+					<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
+				</div>
+			</div>
+			<div class="col-half inline-block pull--right">
+				<canvas id="canvas" height='500' width='500'></canvas>
+			</div>
 		</div>
-		<div id="commands" class="input-holder hidden">
-			<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
-		</div>
-		
-		<canvas id="canvas" height='500' width='500'></canvas>
-		
 		<script src="game.js"></script>
 	</body>
 </html>

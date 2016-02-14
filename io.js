@@ -26,7 +26,8 @@ module.exports = function(io) {
 			name = u || 'anon';
 			
 			db.insert({
-				name: name
+				name: name,
+				stack: []
 			}, function(err, doc) {
 				if(err) return;
 				id = doc._id;
