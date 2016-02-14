@@ -1,0 +1,23 @@
+@import "_helpers.scss";
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#canvas {
+    border: 1px solid black;
+    margin: auto;
+    display: block;
+}
+
+.input-holder {
+    display: block;
+    text-align: center;
+}

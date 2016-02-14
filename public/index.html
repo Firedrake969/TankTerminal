@@ -4,15 +4,18 @@
 		<title>$wag</title>
 
     <script src="/socket.io/socket.io.js"></script>
-		<script src="/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
-		<div id="join">
+		<div id="join" class="input-holder">
+			<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
+		</div>
+		<div id="commands" class="input-holder hidden">
 			<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
 		</div>
 		
-		<canvas id="canvas"></canvas>
+		<canvas id="canvas" height='500' width='500'></canvas>
 		
 		<script src="game.js"></script>
 	</body>

@@ -3,6 +3,8 @@ const request = require('request');
 const Nedb = require('nedb');
 const db = new Nedb();
 
+const out = require('./console.js');
+
 function post(msg) {
 	try {
 		request.post(options.webhook, {
@@ -24,13 +26,17 @@ module.exports = function(io) {
 			name = u || 'anon';
 			
 			db.insert({
-				name
+				name: name
 			}, function(err, doc) {
 				if(err) return;
 				id = doc._id;
 				socket.emit('handshake!', doc._id);
 				post('*' + name + '* connected.');
 			});
+		});
+
+		socket.on('code', function(u) {
+			post(u + ' was sent.');
 		});
 		
 		socket.on('disconnect', function() {
