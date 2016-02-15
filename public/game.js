@@ -1,5 +1,5 @@
+var displayName = undefined;
 var socket, key = 0;
-var name = ''; // wth why can't it be false or undefined
 
 function addToDisplay(code) {
 	var text = '> ' + code;
@@ -9,9 +9,9 @@ function addToDisplay(code) {
 
 $('#join input').on('keyup', function(e) {
 	if (e.which == 13) {
-		if (!name) {
-			name = this.value;
-			sockets(name);
+		if (!displayName) {
+			displayName = this.value;
+			sockets(displayName);
 			$('#join').hide();
 			$('#commands').removeClass('hidden');
 		}
