@@ -51,7 +51,7 @@ module.exports = function(io) {
 			}, function(err, doc) {
 				if (err) return;
 				id = doc._id;
-				socket.emit('handshake!', doc._id);
+				socket.emit('handshake!', doc);
 				post('*' + name + '* connected.');
 			});
 		});
