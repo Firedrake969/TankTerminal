@@ -50,7 +50,7 @@ module.exports = function(io) {
 		});
 
 		socket.on('code', function(u) {
-			post('**' + u + '** was sent by *' + u + '*.');
+			post('**' + u + '** was sent by *' + name + '*.');
 			// how to get user from the socket?
 		});
 		
