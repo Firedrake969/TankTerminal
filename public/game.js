@@ -41,7 +41,7 @@ socket.on('connect', function() {
 				// error - invalid command
 				return;
 			}
-			if (isNaN(input[1])) {
+			if (input[0] !== 'shoot' && isNaN(input[1])) {
 				// error - VALUE is not a number
 				return;
 			}
