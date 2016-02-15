@@ -14,6 +14,7 @@ $('#join input').on('keyup', function(e) {
 			sockets(displayName);
 			$('#join').hide();
 			$('#commands').removeClass('hidden');
+			$('#commands input').focus();
 		}
 	}
 });
@@ -22,7 +23,8 @@ $('#commands input').on('keyup', function(e) {
 	if (e.which == 13) {
 		// parse the input first
 		// should be in form COMMAND VALUE
-		input = this.value.split(' ');
+		var rawInput = this.value;
+		var input = this.value.split(' ');
 		valid_commands = [
 			'forward',
 			'backward',
@@ -44,8 +46,10 @@ $('#commands input').on('keyup', function(e) {
 		}
 		socket = io();
 		// insert the code into the code-display stack
+		addToDisplay(rawInput);
+		this.value = '';
 		socket.on('connect', function() {
-			socket.emit('code', this.value);
+			socket.emit('code', rawInput);
 		}.bind(this));
 	}
 });
