@@ -42,7 +42,7 @@ module.exports = function(io) {
 				name: name,
 				stack: []
 			}, function(err, doc) {
-				if(err) return;
+				if (err) return;
 				id = doc._id;
 				socket.emit('handshake!', doc._id);
 				post('*' + name + '* connected.');
@@ -51,7 +51,15 @@ module.exports = function(io) {
 
 		socket.on('code', function(u) {
 			post('**' + u + '** was sent by *' + name + '*.');
-			// how to get user from the socket?
+			db.update({
+				_id: id
+			}, {
+				$push: {
+					stack: u
+				}
+			}, {}, function(err, thing) {
+				if (err) return;
+			});
 		});
 		
 		socket.on('disconnect', function() {
