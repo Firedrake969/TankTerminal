@@ -33,7 +33,7 @@ socket.on('connect', function() {
 				'turnright',
 				'shoot'
 			];
-			if (input.length !== 2) {
+			if (input[0] !== 'shoot' && input.length !== 2) {
 				// highlight red - error!  too long
 				return;
 			}
