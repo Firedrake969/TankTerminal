@@ -7,21 +7,25 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
 		<link rel="stylesheet" href="style.css">
 	</head>
-	<body>
-		<div class="grid">
-			<div class="col-half inline-block pull--left relative">
-				<div id="join" class="input-holder">
-					<input type="text" placeholder="Name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
-				</div>
-				<div class=".code-display"></div>
-				<div id="commands" class="input-holder hidden">
-					<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
-				</div>
+	<body class="grid relative">
+
+		<div class="col-half inline-block pull--left relative">
+			<div id="join" class="input-holder">
+				<input type="text" placeholder="Name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
 			</div>
-			<div class="col-half inline-block pull--right">
-				<canvas id="canvas" height='500' width='500'></canvas>
+
+			<div class="code-display"></div>
+			
+			<div id="commands" class="input-holder hidden">
+				<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus maxlength="20">
 			</div>
 		</div>
+
+
+		<div class="col-half inline-block pull--right">
+			<canvas id="canvas" height='500' width='500'></canvas>
+		</div>
+
 		<script src="game.js"></script>
 	</body>
 </html>

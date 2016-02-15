@@ -1,11 +1,17 @@
-var socket, key, name = 0;
-var name = undefined;
+var socket, key = 0;
+var name = ''; // wth why can't it be false or undefined
+
+function addToDisplay(code) {
+	var text = '> ' + code;
+	var toInsert = '<div class="code">' + code + '</div>';
+	$('.code-display').append(toInsert);
+}
 
 $('#join input').on('keyup', function(e) {
 	if (e.which == 13) {
 		if (!name) {
-			sockets();
 			name = this.value;
+			sockets(name);
 			$('#join').hide();
 			$('#commands').removeClass('hidden');
 		}
@@ -44,14 +50,13 @@ $('#commands input').on('keyup', function(e) {
 	}
 });
 
-function sockets() {
-	name = $('#join input').val();
+function sockets(n) {
 	socket = io();
 	
 	$('#join input').val('connected!');
 
 	socket.on('connect', function() {
-		socket.emit('handshake?', name);
+		socket.emit('handshake?', n);
 	});
 
 	socket.on('handshake!', function(key) {
