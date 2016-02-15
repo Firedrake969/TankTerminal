@@ -9,7 +9,8 @@ const out = require('./console.js');
 	Proposal of DB structure...
 	DB
 		User object
-			Game ID
+      _id // _id is pre-populated by NeDB, it's unique
+			Room(?) ID
 			tank object
 				pos, dir, etc
 			Stack (array)
@@ -40,6 +41,11 @@ module.exports = function(io) {
 			
 			db.insert({
 				name: name,
+				tank: {
+					x: 0,
+					y: 0,
+					dir: 0
+				},
 				stack: []
 			}, function(err, doc) {
 				if (err) return;

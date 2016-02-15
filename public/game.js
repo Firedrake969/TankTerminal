@@ -1,5 +1,6 @@
 var displayName = undefined;
 var key = 0;
+var socket = io();
 
 socket.on('connect', function() {
 	function addToDisplay(code) {
