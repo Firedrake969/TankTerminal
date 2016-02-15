@@ -46,6 +46,7 @@ module.exports = function(io) {
 					y: 0,
 					dir: 0
 				},
+				bullets: [],
 				stack: []
 			}, function(err, doc) {
 				if (err) return;
