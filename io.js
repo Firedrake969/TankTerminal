@@ -42,9 +42,9 @@ module.exports = function(io) {
 			db.insert({
 				name: name,
 				tank: {
-					x: 0,
-					y: 0,
-					dir: 0
+					x: 50,
+					y: 50,
+					dir: 45
 				},
 				bullets: [],
 				stack: []
@@ -58,6 +58,7 @@ module.exports = function(io) {
 
 		socket.on('code', function(u) {
 			post('**' + u + '** was sent by *' + name + '*.');
+			// we should probably validate the code first lol
 			db.update({
 				_id: id
 			}, {
@@ -66,6 +67,15 @@ module.exports = function(io) {
 				}
 			}, {}, function(err, thing) {
 				if (err) return;
+				db.findOne({
+					_id: id
+				}, function(err, doc) {
+					// doc should have necessary data
+					socket.emit('updatePositions', {
+						me: doc,
+						others: []
+					});
+				});
 			});
 		});
 		

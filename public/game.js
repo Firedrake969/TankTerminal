@@ -41,10 +41,9 @@ function drawData() {
 	requestAnimationFrame(drawData);
 	// what data will be passed in?
 	// format:  {me: {tank data, bullets: [bullet data]}, others: [{tank data, bullets: [bullet data]}, etc]}
-	console.log(gameData.me);
-	myTank.x = gameData.me.x;
-	myTank.y = gameData.me.y;
-	myTank.dir = gameData.me.dir;
+	myTank.x = gameData.me.tank.x;
+	myTank.y = gameData.me.tank.y;
+	myTank.dir = gameData.me.tank.dir;
 	if (myTank.imgLoaded) {
 		// clear();
 		myTank.draw(50, 50);
@@ -68,7 +67,6 @@ socket.on('connect', function() {
 				socket.emit('handshake?', displayName);
 				socket.on('handshake!', function(data) {
 					key = data._id;
-					console.log(data);
 					gameData = {
 						me: data,
 						others: [] // ADD THIS LATER
@@ -77,6 +75,10 @@ socket.on('connect', function() {
 				});
 			}
 		}
+	});
+
+	socket.on('updatePositions', function(data) {
+		gameData = data;
 	});
 
 	$('#commands input').on('keyup', function(e) {
