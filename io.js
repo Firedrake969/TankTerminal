@@ -5,6 +5,19 @@ const db = new Nedb();
 
 const out = require('./console.js');
 
+/*
+	Proposal of DB structure...
+	DB
+		User object
+			Game ID
+			tank object
+				pos, dir, etc
+			Stack (array)
+				command1
+				command2
+				etc
+*/
+
 function post(msg) {
 	try {
 		request.post(options.webhook, {
