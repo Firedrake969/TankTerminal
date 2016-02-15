@@ -1,7 +1,7 @@
 const options = require('./options.json');
 const request = require('request');
 const Nedb = require('nedb');
-const db = new Nedb();
+const db = new Nedb({ filename: 'db.json', autoload: true });;
 
 const out = require('./console.js');
 
