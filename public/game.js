@@ -4,7 +4,7 @@ var key = 0;
 socket.on('connect', function() {
 	function addToDisplay(code) {
 		var text = '> ' + code;
-		var toInsert = '<div class="code">' + code + '</div>';
+		var toInsert = '<div class="code">' + text + '</div>';
 		$('.code-display').append(toInsert);
 	}
 
