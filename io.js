@@ -44,7 +44,10 @@ module.exports = function(io) {
 				tank: {
 					x: 50,
 					y: 50,
-					dir: 45
+					dir: 45,
+					expected: {
+
+					}
 				},
 				bullets: [],
 				stack: []
@@ -71,6 +74,7 @@ module.exports = function(io) {
 					_id: id
 				}, function(err, doc) {
 					// doc should have necessary data
+					// calculate tank's next expected pos/dir here?
 					socket.emit('updatePositions', {
 						me: doc,
 						others: []
