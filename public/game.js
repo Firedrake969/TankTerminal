@@ -24,8 +24,12 @@ function Tank(x, y, dir) {
     this.y = y;
     this.dir = dir;
     this.stack = []; // last - newest, first - oldest (evaluate and pop)
-    this.executing = undefined;
-    this.expectedPos = {};
+    this.executing = false;
+    this.expectedPos = {
+    	x: x,
+    	y: y,
+    	dir: dir
+    };
     this.img = new Image();
     this.img.src = 'img/tank.png';
 	this.imgLoaded = false;
@@ -37,10 +41,10 @@ function Tank(x, y, dir) {
 	    ctx.translate(this.x, this.y);
 	    ctx.rotate(rad);
 	    ctx.drawImage(this.img, width / 2 * (-1), height / 2 * (-1), width, height);
-	    ctx.rotate(rad * ( -1 ) );
+	    ctx.rotate(rad * -1);
 	    ctx.translate((this.x) * (-1), (this.y) * (-1));
 	};
-	this.executeCommand = function(cmd) {
+	this.calculateCommand = function(cmd) {
 		if (!validCommand(cmd)) {
 			return false;
 		}
@@ -53,8 +57,8 @@ function Tank(x, y, dir) {
 					var dX = dist * Math.cos(this.dir * Math.PI/180)
 					var dY = dist * Math.sin(this.dir * Math.PI/180)
 					this.expectedPos = {
-						x: this.x + dX,
-						y: this.y + dY,
+						x: Math.round(this.x + dX),
+						y: Math.round(this.y - dY),
 						dir: this.dir
 					};
 					break;
@@ -72,9 +76,42 @@ function Tank(x, y, dir) {
 			// not implemented yet
 		}
 	};
+	this.executeCommand = function(cmd) {
+		if (!validCommand(cmd)) {
+			return false;
+		}
+		cmd = cmd.split(' ')[0];
+		switch (cmd) {
+			case 'forward':
+				var dX = this.expectedPos.x - this.x;
+				var dY = this.expectedPos.y - this.y;
+				if (dX > 0) {
+					this.x++;
+				} else if (dX < 0) {
+					this.x--;
+				}
+				if (dY > 0) {
+					this.y++;
+				} else if (dY < 0) {
+					this.y--;
+				}
+				break;
+			case 'backward':
+				break;
+			case 'turnright':
+				break;
+			case 'turnleft':
+				break;
+			default:
+				// nothing - this should not occur
+		}
+		gameData.me.tank.x = this.x;
+		gameData.me.tank.y = this.y;
+		// gameData.me.tank.dir;
+	}
 }
 
-var myTank = new Tank(250, 250, 45);
+var myTank = new Tank(50, 50, 45);
 
 function clear() {
 	ctx.fillStyle = "rgba(255, 255, 255, .25)";
@@ -91,6 +128,29 @@ function drawData() {
 	clear();
 	if (myTank.imgLoaded) {
 		myTank.draw(50, 50);
+	}
+	if (myTank.stack.length) {
+		if (myTank.executing) { // check if it's completed executing - continue execution if not
+			myTank.executeCommand(myTank.executing);
+		}
+		if (myTank.x == myTank.expectedPos.x
+			&& myTank.y == myTank.expectedPos.y
+			&& myTank.dir == myTank.expectedPos.dir) {
+			// if the tank position is equal to expected, the execution is done
+			myTank.executing = myTank.stack[0]; //set it to the next stack
+			myTank.calculateCommand(myTank.stack[0]);
+		}
+	} else if (myTank.executing) { // no more commands, but it's still executing
+		// keep executing
+		myTank.executeCommand(myTank.executing);
+		// do the check
+		if (myTank.x == myTank.expectedPos.x
+			&& myTank.y == myTank.expectedPos.y
+			&& myTank.dir == myTank.expectedPos.dir) {
+			myTank.executing = false; //set it to the next stack
+		}
+	} else {
+		// nothing - nothing in stack and not executing anything
 	}
 }
 
@@ -146,7 +206,7 @@ socket.on('connect', function() {
 	});
 
 	socket.on('updatePositions', function(data) {
-		gameData = data;
+		// gameData = data;
 	});
 
 	$('#commands input').on('keyup', function(e) {
