@@ -139,6 +139,7 @@ function drawData() {
 			// if the tank position is equal to expected, the execution is done
 			myTank.executing = myTank.stack[0]; //set it to the next stack
 			myTank.calculateCommand(myTank.stack[0]);
+			myTank.stack.shift();
 		}
 	} else if (myTank.executing) { // no more commands, but it's still executing
 		// keep executing
