@@ -160,6 +160,8 @@ function drawData() {
 	if (myTank.imgLoaded) {
 		myTank.draw(50, 50);
 	}
+
+	// Should the below be in a setInterval loop since it's game logic?
 	if (myTank.stack.length) {
 		if (myTank.executing) { // check if it's completed executing - continue execution if not
 			myTank.executeCommand(myTank.executing);
