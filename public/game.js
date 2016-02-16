@@ -64,10 +64,27 @@ function Tank(x, y, dir) {
 					break;
 				case 'backward':
 					var dist = -cmd[1];
+					var dX = dist * Math.cos(this.dir * Math.PI/180)
+					var dY = dist * Math.sin(this.dir * Math.PI/180)
+					this.expectedPos = {
+						x: Math.round(this.x + dX),
+						y: Math.round(this.y - dY),
+						dir: this.dir
+					};
 					break;
 				case 'turnright':
+					this.expectedPos = {
+						x: this.x,
+						y: this.y,
+						dir: this.dir + Math.round(cmd[1])
+					}
 					break;
 				case 'turnleft':
+					this.expectedPos = {
+						x: this.x,
+						y: this.y,
+						dir: this.dir - Math.round(cmd[1])
+					}
 					break;
 				default:
 					// nothing - this should not occur
@@ -97,17 +114,31 @@ function Tank(x, y, dir) {
 				}
 				break;
 			case 'backward':
+				var dX = this.expectedPos.x - this.x;
+				var dY = this.expectedPos.y - this.y;
+				if (dX > 0) {
+					this.x++;
+				} else if (dX < 0) {
+					this.x--;
+				}
+				if (dY > 0) {
+					this.y++;
+				} else if (dY < 0) {
+					this.y--;
+				}
 				break;
 			case 'turnright':
+				this.dir++;
 				break;
 			case 'turnleft':
+				this.dir--;
 				break;
 			default:
 				// nothing - this should not occur
 		}
 		gameData.me.tank.x = this.x;
 		gameData.me.tank.y = this.y;
-		// gameData.me.tank.dir;
+		gameData.me.tank.dir = this.dir;
 	}
 }
 
