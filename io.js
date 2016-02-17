@@ -35,11 +35,11 @@ module.exports = function(io) {
 	io.on('connection', function(socket) {
 		var id = '';
 		var name = 'anon';
+		var myTank = undefined;
 		
 		socket.on('handshake?', function(u) {
 			name = u || 'anon';
-			
-			db.insert({
+			myTank = {
 				name: name,
 				tank: {
 					x: 50,
@@ -51,12 +51,70 @@ module.exports = function(io) {
 				},
 				bullets: [],
 				stack: []
-			}, function(err, doc) {
+			}
+			
+			db.insert(myTank, function(err, doc) {
 				if (err) return;
 				id = doc._id;
 				socket.emit('handshake!', doc);
 				post('*' + name + '* connected.');
 			});
+		});
+
+		// there has to be a better way...
+		socket.on('incX', function(u) {
+			myTank.tank.x++;
+			db.update({
+				_id: id
+			}, {
+				'tank.x': myTank.tank.x
+			}, {}, function(err, thing) {
+				socket.emit('updatePositions', {
+					me: myTank
+				});
+			});
+		});
+		socket.on('decX', function(u) {
+			myTank.tank.x--;
+			db.update({
+				_id: id
+			}, {
+				'tank.x': myTank.tank.x
+			}, {}, function(err, thing) {
+				socket.emit('updatePositions', {
+					me: myTank
+				});
+			});
+		});
+		socket.on('incY', function(u) {
+			myTank.tank.y++;
+			db.update({
+				_id: id
+			}, {
+				'tank.t': myTank.tank.t
+			}, {}, function(err, thing) {
+				socket.emit('updatePositions', {
+					me: myTank
+				});
+			});
+		});
+		socket.on('decY', function(u) {
+			myTank.tank.y--;
+			db.update({
+				_id: id
+			}, {
+				'tank.y': myTank.tank.y
+			}, {}, function(err, thing) {
+				socket.emit('updatePositions', {
+					me: myTank
+				});
+			});
+		});
+		socket.on('incDir', function(u) {
+
+		});
+		socket.on('decDir', function(u) {
+
 		});
 
 		socket.on('code', function(u) {
@@ -73,12 +131,7 @@ module.exports = function(io) {
 				db.findOne({
 					_id: id
 				}, function(err, doc) {
-					// doc should have necessary data
-					// calculate tank's next expected pos/dir here?
-					socket.emit('updatePositions', {
-						me: doc,
-						others: []
-					});
+
 				});
 			});
 		});

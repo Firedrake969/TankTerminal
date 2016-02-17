@@ -90,7 +90,7 @@ function Tank(x, y, dir) {
 					// nothing - this should not occur
 			}
 		} else {
-			// not implemented yet
+			// not implemented yet - SHOOT command
 		}
 	};
 	this.executeCommand = function(cmd) {
@@ -104,13 +104,17 @@ function Tank(x, y, dir) {
 				var dY = this.expectedPos.y - this.y;
 				if (dX > 0) {
 					this.x++;
+					socket.emit('incX', {});
 				} else if (dX < 0) {
 					this.x--;
+					socket.emit('decX', {});
 				}
 				if (dY > 0) {
 					this.y++;
+					socket.emit('incY', {});
 				} else if (dY < 0) {
 					this.y--;
+					socket.emit('decY', {});
 				}
 				break;
 			case 'backward':
@@ -118,20 +122,26 @@ function Tank(x, y, dir) {
 				var dY = this.expectedPos.y - this.y;
 				if (dX > 0) {
 					this.x++;
+					socket.emit('incX', {});
 				} else if (dX < 0) {
 					this.x--;
+					socket.emit('decX');
 				}
 				if (dY > 0) {
 					this.y++;
+					socket.emit('incY');
 				} else if (dY < 0) {
 					this.y--;
+					socket.emit('decY');
 				}
 				break;
 			case 'turnright':
 				this.dir++;
+				socket.emit('incDir');
 				break;
 			case 'turnleft':
 				this.dir--;
+				socket.emit('decDir');
 				break;
 			default:
 				// nothing - this should not occur
@@ -239,8 +249,9 @@ socket.on('connect', function() {
 		}
 	});
 
+	// FINISH AFTER SERVERSIDE SYNCING
 	socket.on('updatePositions', function(data) {
-		// gameData = data;
+		gameData = data;
 	});
 
 	$('#commands input').on('keyup', function(e) {
