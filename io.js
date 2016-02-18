@@ -9,7 +9,7 @@ const out = require('./console.js');
 	Proposal of DB structure...
 	DB
 		User object
-      _id // _id is pre-populated by NeDB, it's unique
+	    _id // _id is pre-populated by NeDB, it's unique
 			Room(?) ID
 			tank object
 				pos, dir, etc
@@ -44,10 +44,7 @@ module.exports = function(io) {
 				tank: {
 					x: 50,
 					y: 50,
-					dir: 45,
-					expected: {
-
-					}
+					dir: 45
 				},
 				bullets: [],
 				stack: []
