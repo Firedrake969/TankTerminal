@@ -254,6 +254,7 @@ socket.on('connect', function() {
 		gameData = data;
 	});
 
+	var lastCommand = undefined;
 	$('#commands input').on('keyup', function(e) {
 		if (e.which == 13) {
 			// parse the input first
@@ -265,8 +266,12 @@ socket.on('connect', function() {
 			// insert the code into the code-display stack
 			addToDisplay(rawInput);
 			myTank.stack.push(rawInput);
+			lastCommand = rawInput;
 			this.value = '';
 			socket.emit('code', rawInput);
+		}
+		if (e.which == 38) {
+			this.value = lastCommand ? lastCommand : '';
 		}
 	});
 });
