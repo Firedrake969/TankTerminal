@@ -54,21 +54,21 @@ function Tank(x, y, dir) {
 			switch (cmd[0]) {
 				case 'forward':
 					var dist = cmd[1];
-					var dX = dist * Math.cos(this.dir * Math.PI/180)
-					var dY = dist * Math.sin(this.dir * Math.PI/180)
+					var dX = dist * Math.sin(this.dir * Math.PI/180)
+					var dY = dist * -Math.cos(this.dir * Math.PI/180)
 					this.expectedPos = {
 						x: Math.round(this.x + dX),
-						y: Math.round(this.y - dY),
+						y: Math.round(this.y + dY),
 						dir: this.dir
 					};
 					break;
 				case 'backward':
 					var dist = -cmd[1];
-					var dX = dist * Math.cos(this.dir * Math.PI/180)
-					var dY = dist * Math.sin(this.dir * Math.PI/180)
+					var dX = dist * Math.sin(this.dir * Math.PI/180)
+					var dY = dist * -Math.cos(this.dir * Math.PI/180)
 					this.expectedPos = {
 						x: Math.round(this.x + dX),
-						y: Math.round(this.y - dY),
+						y: Math.round(this.y + dY),
 						dir: this.dir
 					};
 					break;
@@ -152,7 +152,7 @@ function Tank(x, y, dir) {
 	}
 }
 
-var myTank = new Tank(50, 50, 45);
+var myTank = new Tank(50, 50, 0);
 
 function clear() {
 	ctx.fillStyle = "rgba(255, 255, 255, .25)";

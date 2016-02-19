@@ -20,13 +20,13 @@ const out = require('./console.js');
 */
 
 function post(msg) {
-	try {
-		request.post(options.webhook, {
-			json: {
-				message: msg
-			}
-		});
-	} catch(e) {}
+	// try {
+	// 	request.post(options.webhook, {
+	// 		json: {
+	// 			message: msg
+	// 		}
+	// 	});
+	// } catch(e) {}
 }
 
 module.exports = function(io) {
@@ -44,10 +44,23 @@ module.exports = function(io) {
 				tank: {
 					x: 50,
 					y: 50,
-					dir: 45
+					dir: 0
 				},
 				bullets: [],
-				stack: []
+				stack: [],
+				update: function() {
+					db.update({
+						_id: id
+					}, {
+						'tank.x': this.tank.x,
+						'tank.y': this.tank.y,
+						'tank.dir': this.tank.dir
+					}, {}, function(err, thing) {
+						socket.emit('updatePositions', {
+							me: this
+						});
+					}.bind(this));
+				}
 			}
 			
 			db.insert(myTank, function(err, doc) {
@@ -61,57 +74,27 @@ module.exports = function(io) {
 		// there has to be a better way...
 		socket.on('incX', function(u) {
 			myTank.tank.x++;
-			db.update({
-				_id: id
-			}, {
-				'tank.x': myTank.tank.x
-			}, {}, function(err, thing) {
-				socket.emit('updatePositions', {
-					me: myTank
-				});
-			});
+			myTank.update();
 		});
 		socket.on('decX', function(u) {
 			myTank.tank.x--;
-			db.update({
-				_id: id
-			}, {
-				'tank.x': myTank.tank.x
-			}, {}, function(err, thing) {
-				socket.emit('updatePositions', {
-					me: myTank
-				});
-			});
+			myTank.update();
 		});
 		socket.on('incY', function(u) {
 			myTank.tank.y++;
-			db.update({
-				_id: id
-			}, {
-				'tank.t': myTank.tank.t
-			}, {}, function(err, thing) {
-				socket.emit('updatePositions', {
-					me: myTank
-				});
-			});
+			myTank.update();
 		});
 		socket.on('decY', function(u) {
 			myTank.tank.y--;
-			db.update({
-				_id: id
-			}, {
-				'tank.y': myTank.tank.y
-			}, {}, function(err, thing) {
-				socket.emit('updatePositions', {
-					me: myTank
-				});
-			});
+			myTank.update();
 		});
 		socket.on('incDir', function(u) {
-
+			myTank.tank.dir++;
+			myTank.update();
 		});
 		socket.on('decDir', function(u) {
-
+			myTank.tank.dir--;
+			myTank.update();
 		});
 
 		socket.on('code', function(u) {
